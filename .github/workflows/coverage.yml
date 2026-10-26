@@ -1,0 +1,29 @@
+
+name: Coverage (nightly)
+
+on:
+  schedule:
+    - cron: '0 6 * * *' # 06:00 UTC daily
+  workflow_dispatch:
+
+jobs:
+  coverage:
+    name: Collect coverage (${{ matrix.app }})
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        app: [api, web]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - name: Test with coverage
+        run: npm test --workspace=apps/${{ matrix.app }} -- --coverage
+      - uses: actions/upload-artifact@v4
+        with:
+          name: coverage-${{ matrix.app }}-${{ github.run_id }}
+          path: apps/${{ matrix.app }}/coverage
+          retention-days: 14
