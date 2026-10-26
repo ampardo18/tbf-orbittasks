@@ -21,8 +21,7 @@ module.exports = {
   roots: ['<rootDir>/tests'],
   testMatch: ['**/*.test.ts'],
 
-  // SLOW: only one worker.
-  maxWorkers: 1,
+  maxWorkers: '50%',
 
   collectCoverage: false,
   coverageDirectory: '<rootDir>/coverage',

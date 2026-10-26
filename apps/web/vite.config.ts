@@ -28,18 +28,15 @@ export default defineConfig({
     globals: true,
     setupFiles: ['./tests/setup.ts'],
 
-    // SLOW: serial single-fork pool.
     pool: 'forks',
     poolOptions: {
       forks: {
-        singleFork: true,
+        singleFork: false,
       },
     },
 
-    // SLOW: full isolation between test files.
     isolate: true,
 
-    // SLOW: coverage on every run.
     coverage: {
       enabled: false,
       provider: 'v8',
