@@ -27,8 +27,7 @@ module.exports = {
   coverageDirectory: '<rootDir>/coverage',
   coverageReporters: ['text', 'lcov'],
 
-  // SLOW: nothing cached between runs.
-  // (Deliberately omitting cacheDirectory.)
+  setupFiles: ['<rootDir>/tests/setup/mockFetch.ts'],
 
   globalSetup: '<rootDir>/tests/setup/globalSetup.js',
   globalTeardown: '<rootDir>/tests/setup/globalTeardown.js',

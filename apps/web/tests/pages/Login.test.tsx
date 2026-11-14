@@ -94,8 +94,6 @@ describe('Login page', () => {
     fireEvent.change(screen.getByLabelText('email'), { target: { value: 'a@b.co' } });
     fireEvent.change(screen.getByLabelText('password'), { target: { value: 'hunter22' } });
     fireEvent.click(screen.getByTestId('login-submit'));
-    // BUG: fixed-time guess instead of waiting for the condition.
-    await new Promise((r) => setTimeout(r, 15));
-    expect(onSuccess).toHaveBeenCalled();
+    await waitFor(() => expect(onSuccess).toHaveBeenCalled());
   });
 });
