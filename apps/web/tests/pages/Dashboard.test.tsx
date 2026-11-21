@@ -47,6 +47,9 @@ describe('Dashboard page', () => {
     await waitFor(() => expect(screen.getByTestId('dashboard-error')).toBeInTheDocument());
   });
 
+  // W5 step 6 (was flaky): same missing-`waitFor` shape as the Login test.
+  // The fetch resolves after a random 0-30ms delay; the old test slept a
+  // fixed 15ms then asserted. Fix: wait for the list instead of guessing.
   it('shows the task list shortly after load', async () => {
     globalThis.fetch = vi.fn().mockImplementation(
       () =>

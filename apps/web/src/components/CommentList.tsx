@@ -8,6 +8,9 @@ export interface Comment {
   createdAt: string;
 }
 
+// W5 step 5: accept an optional `now` so relative timestamps are
+// deterministic in tests. Defaults to the real clock in the app; tests pass
+// a fixed reference instead of depending on the wall-clock at render time.
 export function CommentList({ comments, now }: { comments: Comment[]; now?: Date }) {
   if (comments.length === 0) {
     return <p style={{ color: '#6B7280' }}>No comments yet.</p>;

@@ -1,3 +1,7 @@
+// W5 step 1: pure helpers extracted from the reports.ts CSV "god function".
+// No behavior change — the CSV output is byte-for-byte what the inline code
+// produced. Splitting it out makes each concern (date range, completion rate,
+// bucketing, timezone formatting, row building) nameable and unit-testable.
 
 export interface ReportTask {
   id: number;

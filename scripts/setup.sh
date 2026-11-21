@@ -7,7 +7,8 @@ set -euo pipefail
 
 echo "[setup] starting OrbitTasks setup ..."
 
-# typo: should be 'logs' — this will fail on systems where logss already exists
+# W4 fix: was `mkdir -p logss` — a one-char typo. mkdir -p never errored,
+# so it silently created the wrong dir and onboarding quietly broke.
 mkdir -p logs
 
 if [[ ! -f .env ]]; then

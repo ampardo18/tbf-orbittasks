@@ -15,6 +15,12 @@ export const reportsRouter = Router();
 
 reportsRouter.use(requireAuth);
 
+// W5 step 1: the CSV report used to be one ~180-line route handler. It now
+// reads as a pipeline of named, pure helpers (reports.csv.ts) with the
+// handler responsible only for I/O: parse query, load data, emit. Behavior
+// is unchanged — same CSV bytes out.
+
+// Assignee hydration stays here because it reads the db (not pure).
 function enrichAssignees(tasks: ReportTask[]): EnrichedTask[] {
   return tasks.map((t) => {
     let assigneeName = 'unassigned';
@@ -61,6 +67,7 @@ reportsRouter.get('/project/:projectId.csv', async (req, res) => {
     tz,
   });
 
+  // Side effect kept out of the helpers so they stay pure.
   sendNotification({
     to: 'reports@orbittasks.local',
     subject: `Report generated for ${project.name}`,

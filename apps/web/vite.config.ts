@@ -28,6 +28,8 @@ export default defineConfig({
     globals: true,
     setupFiles: ['./tests/setup.ts'],
 
+    // W3 step 4: allow multiple forks (was singleFork: true). Flip BOTH
+    // knobs — leaving isolate:true still re-creates jsdom per file.
     pool: 'forks',
     poolOptions: {
       forks: {
@@ -35,8 +37,12 @@ export default defineConfig({
       },
     },
 
+    // W3 step 4: keep per-file isolation (isolate:true). The parallelism win
+    // comes from singleFork:false; flipping isolate:false too over-shares the
+    // jsdom document across files in a fork and breaks queries here.
     isolate: true,
 
+    // W3 step 3: coverage off the PR path; run it nightly instead.
     coverage: {
       enabled: false,
       provider: 'v8',

@@ -23,7 +23,9 @@ Log in with `demo@orbittasks.local` / `Password123`.
 
 A slow GitHub Actions workflow ships at [`.github/workflows/ci.yml`](./.github/workflows/ci.yml). It runs on every push and PR. The baseline duration is ~13 minutes; the optimization arc in Workshops 3–5 brings it down to ~2 minutes.
 
-```
+## Setup
+
+```bash
 cp .env.example .env
 # Edit .env to add JWT_SECRET and DATABASE_URL (see .env.example)
 #   JWT_SECRET=any-random-string-for-local-dev
@@ -38,15 +40,9 @@ npm run seed --workspace=apps/api
 npm run dev --workspace=apps/api
 npm run dev --workspace=apps/web
 ```
-```SEED_ON_BOOT=1``` exists, but it only runs on Render in the deployed environment. Locally you must seed by hand.
 
-## Setup
-
-```bash
-npm install
-```
-
-That's it!
+> `SEED_ON_BOOT=1` exists, but it only runs on Render in the deployed
+> environment. Locally you must seed by hand.
 
 ## Running tests
 
@@ -59,15 +55,3 @@ npm test
 ```bash
 npm run deploy
 ```
-
----
-
-<!--
-  NOTE for individuals reading the source:
-  The "Setup", "Running tests", and "Deploying" sections above are
-  deliberately misleading. Several required steps (env vars, the seed
-  script, etc.) are not documented. Students will discover this in
-  Workshop 4 (Developer Experience Engineering) and fix it as part
-  of that session's deliverable. Please do NOT update this README
-  to be accurate before Workshop 4 runs.
--->

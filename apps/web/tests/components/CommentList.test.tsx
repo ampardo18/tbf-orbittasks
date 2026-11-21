@@ -16,7 +16,11 @@ describe('CommentList', () => {
     render(<CommentList comments={comments} />);
     expect(screen.getAllByText(/Looks good|Ship it/)).toHaveLength(2);
   });
-  
+
+  // W5 step 5 (was flaky): the old test dated a comment ~half a day back and
+  // read the real clock, so rounding flipped between "today" and "yesterday"
+  // run to run. Fix: inject a fixed `now` so the relative-time string is
+  // deterministic. No clock dependence, no jitter.
   it('renders a relative timestamp deterministically', () => {
     const now = new Date('2026-01-15T12:00:00.000Z');
     const createdAt = new Date(now.getTime() - 11 * 60 * 60 * 1000); // 11h earlier, same day

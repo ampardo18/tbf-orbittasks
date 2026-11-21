@@ -11,6 +11,9 @@ export interface TaskListProps {
   overscan?: number;
 }
 
+// W5 step 4: pure window math, extracted so it's unit-testable without a DOM.
+// Given the scroll position and viewport, return the slice of indices that
+// actually need to be in the DOM.
 export function visibleRange(
   scrollTop: number,
   viewportHeight: number,
@@ -24,6 +27,10 @@ export function visibleRange(
   return { start, end };
 }
 
+// W5 step 4: window-based virtualization using only React built-ins (no deps).
+// A long list used to render every card (500 DOM nodes in the slow test);
+// now only the visible window plus a small overscan is mounted, and a spacer
+// preserves the scrollbar geometry.
 export function TaskList({
   tasks,
   onTaskClick,

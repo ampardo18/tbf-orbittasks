@@ -21,12 +21,22 @@ module.exports = {
   roots: ['<rootDir>/tests'],
   testMatch: ['**/*.test.ts'],
 
+  // W3 step 4: fan out across workers (was maxWorkers: 1).
   maxWorkers: '50%',
 
+  // W3 step 3: coverage off the PR path; run it nightly instead
+  // (.github/workflows/coverage.yml). Override on demand: jest --coverage.
   collectCoverage: false,
   coverageDirectory: '<rootDir>/coverage',
   coverageReporters: ['text', 'lcov'],
 
+  // SLOW: nothing cached between runs.
+  // (Deliberately omitting cacheDirectory.)
+
+  // W5 step 3: stub the SDK transport (global fetch) in-process so tests
+  // never make real HTTP. The mock server below is no longer on the hot
+  // path; it's left wired so the suite still works if you remove this line
+  // to demo the slow baseline.
   setupFiles: ['<rootDir>/tests/setup/mockFetch.ts'],
 
   globalSetup: '<rootDir>/tests/setup/globalSetup.js',

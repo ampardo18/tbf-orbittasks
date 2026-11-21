@@ -1,3 +1,6 @@
+# OrbitTasks — one-command developer workflow (W4 step 5).
+# A team that is all-JavaScript might prefer npm scripts; we use a
+# Makefile because it is polyglot. The point is: one command to onboard.
 .PHONY: setup dev test ci clean
 
 setup:

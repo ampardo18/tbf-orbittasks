@@ -38,6 +38,11 @@ describe('reports', () => {
     expect(done).toHaveLength(2);
   });
 
+  // W2 FIX (was flaky): the original raced a randomized 50–250 ms timer
+  // against a fixed 150 ms timer, so it passed ~50% of the time. Root cause
+  // (5 Whys, W2): the assertion depended on real wall-clock ordering.
+  // Fix: drive the clock with fake timers so the "fast" path always resolves
+  // before the deadline. Deterministic on every run.
   it('processes async events within budget', async () => {
     jest.useFakeTimers();
     try {

@@ -13,7 +13,8 @@ DEST="dist/"
 mkdir -p "$DEST"
 
 echo "[deploy] starting deploy to $DEST"
-
+# W3 step 8: rsync both build dirs in one pass instead of copying file by
+# file with a per-file sleep. One bulk transfer, not N round-trips.
 rsync -a "${SRC_DIRS[@]}" "$DEST"
 
 echo "[deploy] running smoke checks ..."

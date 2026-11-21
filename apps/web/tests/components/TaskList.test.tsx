@@ -35,6 +35,10 @@ describe('TaskList', () => {
     });
   });
 
+  // W5 step 4: the old test rendered 500 cards (~2s of legitimate DOM work).
+  // Now the component virtualizes, so a long list mounts only a window. We
+  // assert the window is small instead of forcing 500 nodes, and unit-test
+  // the window math directly — same coverage, milliseconds instead of seconds.
   it('virtualizes a long list (renders a window, not every card)', () => {
     render(<TaskList tasks={makeTasks(500)} />);
     const cards = screen.getAllByTestId('task-card');
